@@ -1,0 +1,60 @@
+@CHARSET "ISO-8859-1";
+
+#contenedor {
+	margin: 0px auto;
+	width: 90%;
+	text-align: center;
+	font-family: Tahoma;
+}
+
+#cabecera {
+	height: 100px;
+	background-color: orange;
+	padding: 10px;
+}
+
+.izq {
+	float: left;
+}
+
+.der {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+#menu {
+	float: left;
+	width: 30%;
+}
+
+#cuerpo {
+	float: rigth;
+	width: 65%;
+}
+
+#pie {
+	background: orange;
+	font-weight: bold;
+}
+
+#menu ul {
+	list-style-type: none;
+}
+
+#menu ul li {
+	margin-bottom: 15px;
+	border-bottom: 1px solid black;
+}
+
+#menu ul a {
+	text-decoration: none;
+	color: black;
+	display: block;
+}
+
+#menu ul a:HOVER {
+	background-color: orange;
+}

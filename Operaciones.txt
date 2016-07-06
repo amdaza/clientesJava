@@ -1,0 +1,28 @@
+Operaciones / acciones:
+
+nuevo:
+	mostrar formClientes
+	
+grabar cliente:
+	recuperar datos del formulario
+	crear el cliente
+	validaciones (repetido?)
+	grabar el cliente con el DAO
+	dar una respuesta ==> VISTA
+	
+buscar:
+	recuperar paises del modelo --> DAO
+	mostrar formBuscador
+	
+listar:
+	recuperar parámetros
+	recuperar clientes a partir de parámetros --> DAO
+	mostrar un listado ==> VISTA
+	
+validar/login: 
+	procesar formulario login
+	validar el user
+	
+cerrarConexion:
+	cerrar sesión
+	mostrar VISTA
