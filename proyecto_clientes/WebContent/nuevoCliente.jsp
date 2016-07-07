@@ -15,7 +15,6 @@
 			<div id="cuerpo">
 				<jsp:include page="vistas/formCliente.jsp"></jsp:include>
 			</div>
-				<p>Aquí va el cuerpo de la página</p>
 		</div>
 		<div class="clear"></div>
 		<div id="pie"><jsp:include page="vistas/pie_pagina.html"></jsp:include></div>

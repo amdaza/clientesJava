@@ -1,22 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insertar cliente</title>
+<title>Insertar nuevo cliente</title>
 </head>
 <body>
-	<h3>Insertar cliente</h3>
-	<form name="datosCliente" method="post" action="insertarCliente.do">
-	
-		Nombre: <input type="text" name="nombre">
-		Pais: <input type="text" name="nombre">
-		Carnet: <input type="checkbox" name="carnet" value="1">
-		Música: <input type="checkbox" name="musica" value="1">
-		Cine: <input type="checkbox" name="cine" value="1">
-		Deporte: <input type="checkbox" name="deporte" value="1">
-		Montaña: <input type="checkbox" name="montanya" value="1">
+	<h3>Insertar nuevo cliente</h3>
+	<% List<String> paises = (List) request.getAttribute("paises"); %>
+	<form name="datos" action="insertarCliente.do" method="post">
+		<table>
+			<tr>
+				<td>Id Cliente</td>
+				<td><input type="text" name="idcliente"></td>
+			</tr>
+			<tr>
+				<td>Nombre</td>
+				<td><input type="text" name="nombre"></td>
+			</tr>
+			<tr>
+				<td>País</td>
+				<td>
+					<select name="pais">
+						<%for (String p : paises){ %>
+						<option><%=p%></option>
+						<%} %>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="Grabar">
 	</form>
 </body>
 </html>
