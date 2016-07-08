@@ -26,3 +26,6 @@ validar/login:
 cerrarConexion:
 	cerrar sesión
 	mostrar VISTA
+	
+error:
+	crear vista de error

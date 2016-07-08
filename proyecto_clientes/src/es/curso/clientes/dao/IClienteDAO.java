@@ -19,5 +19,7 @@ public interface IClienteDAO {
 	
 	public List<String> getPaises() throws DAOException;
 	
+	public List<Cliente> clientesEnPais(String pais) throws DAOException;
+	
 	public void cerrar() throws DAOException;
 }

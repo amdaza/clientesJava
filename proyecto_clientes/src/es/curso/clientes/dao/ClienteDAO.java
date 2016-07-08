@@ -187,4 +187,33 @@ public class ClienteDAO implements IClienteDAO{
 		return paises;
 	}
 
+	@Override
+	public List<Cliente> clientesEnPais(String pais) throws DAOException {
+		PreparedStatement ps;
+		String sql;
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		ResultSet rst;
+		
+		try {
+			sql = "SELECT idcliente, nombre, pais FROM clientes WHERE pais = ?";
+			ps = conexion.prepareStatement(sql);
+			ps.setString(1, pais);
+				
+			rst = ps.executeQuery();
+		
+			while (rst.next()){
+				Cliente cliente = new Cliente();
+				cliente.setIdcliente(rst.getString("idcliente"));
+				cliente.setNombre(rst.getString("nombre"));
+				cliente.setPais(rst.getString("pais"));
+				
+				clientes.add(cliente);
+			}
+	
+		} catch (SQLException e) {
+			throw new DAOException(e.getMessage());
+		}
+		return clientes;
+	}
+
 }

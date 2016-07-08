@@ -88,7 +88,7 @@ public class Controlador extends HttpServlet {
 			doLogout(request,response);
 			break;
 		default:
-			System.out.println("Error");
+			paginaError("La acción no se encuentra disponible", request, response);
 			break;
 		}
 	}
@@ -100,7 +100,7 @@ public class Controlador extends HttpServlet {
 			clientes = clienteDAO.leerTodos();
 			request.setAttribute("clientes", clientes);
 		} catch (DAOException e) {
-			System.out.println(e.getMessage());
+			paginaError(e.getMessage(), request, response);
 		}
 		RequestDispatcher rq = request.getRequestDispatcher("listadoClientes.jsp");
 		rq.forward(request, response);
@@ -115,7 +115,7 @@ public class Controlador extends HttpServlet {
 			request.setAttribute("paises", paises);
 
 		} catch (DAOException e) {
-			e.printStackTrace();
+			paginaError(e.getMessage(), request, response);
 		}
 
 		String idcliente = request.getParameter("idcliente");
@@ -124,8 +124,7 @@ public class Controlador extends HttpServlet {
 				cliente = clienteDAO.leer(idcliente);
 				request.setAttribute("cliente", cliente);
 			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				paginaError(e.getMessage(), request, response);
 			}
 		}
 
@@ -144,8 +143,7 @@ public class Controlador extends HttpServlet {
 		try {
 			clienteDAO.grabar(nuevoCliente);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			paginaError(e.getMessage(), request, response);
 		}
 
 		listaClientes(request,response);
@@ -162,8 +160,7 @@ public class Controlador extends HttpServlet {
 		try {
 			clienteDAO.actualizar(nuevoCliente);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			paginaError(e.getMessage(), request, response);
 		}
 
 		listaClientes(request,response);
@@ -176,7 +173,7 @@ public class Controlador extends HttpServlet {
 		try {
 			clienteDAO.borrar(idcliente);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			paginaError(e.getMessage(), request, response);
 		}
 
 		listaClientes(request,response);
@@ -206,5 +203,11 @@ public class Controlador extends HttpServlet {
 		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
 		rq.forward(request, response);
 
+	}
+	
+	private void paginaError(String error, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		request.setAttribute("error", error);
+		RequestDispatcher rq = request.getRequestDispatcher("error.jsp");
+		rq.forward(request, response);
 	}
 }
