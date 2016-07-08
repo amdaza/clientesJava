@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,8 +11,11 @@
 		<h2>Gestión de Clientes</h2>
 	</div>
 	<div class="der">
-		<% if (session.getAttribute("login") == null) { %>
-			<form action="" method="post">
+		<% 
+			String user = (String) session.getAttribute("user");
+			if (user == null) {
+		%>
+				<form action="login.do" method="post">
 				<table>
 					<tr>
 						<td>Login</td>
@@ -23,14 +26,18 @@
 						<td><input type="password" name="pass"></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td><input type="submit" value="Login"></td>
+						<td colspan="2"><input type="submit" value="Login"></td>
 					</tr>
 				</table>
 			</form>
-		<% } else { %>
-			<h5>Usuario conectado: -</h5>
-		<% } %>
+		<%
+			} else{
+	 	%>
+				<h5>Usuario conectado: <%=user%></h5>
+				<a href="logout.do">Cerrar conexión</a>
+		<%	
+			}
+		%>
 	</div>
 </body>
 </html>

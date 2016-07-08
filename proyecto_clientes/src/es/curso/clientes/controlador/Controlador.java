@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.curso.clientes.beans.Cliente;
 import es.curso.clientes.dao.ClienteDAO;
@@ -79,6 +80,12 @@ public class Controlador extends HttpServlet {
 			break;
 		case "/eliminarCliente.do":
 			eliminarCliente(request, response);
+			break;
+		case "/login.do":
+			doLogin(request,response);
+			break;
+		case "/logout.do":
+			doLogout(request,response);
 			break;
 		default:
 			System.out.println("Error");
@@ -173,5 +180,31 @@ public class Controlador extends HttpServlet {
 		}
 
 		listaClientes(request,response);
+	}
+	
+	private void doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String login = request.getParameter("login");
+		String pass = request.getParameter("pass");
+		
+		if (login!= null && pass != null &&
+			login.equals("admin") && pass.equals("123")) {
+			// Crear sesión
+			HttpSession sesion = request.getSession(true);
+			
+			// Almacenar login en la sesión
+			sesion.setAttribute("user", login);	
+			
+		} 
+
+		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		rq.forward(request, response);
+	}
+
+	private void doLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession(true).invalidate();
+
+		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		rq.forward(request, response);
+
 	}
 }
