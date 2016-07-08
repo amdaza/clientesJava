@@ -135,7 +135,6 @@ public class ClienteDAO implements IClienteDAO{
 		
 		try {
 			sql = "SELECT idcliente, nombre, pais FROM clientes ";
-			System.out.println("Conexion" + conexion);
 			ps = conexion.prepareStatement(sql);
 				
 			rst = ps.executeQuery();
@@ -173,7 +172,6 @@ public class ClienteDAO implements IClienteDAO{
 		
 		try {
 			sql = "SELECT DISTINCT pais FROM clientes ORDER BY pais";
-			System.out.println("Conexion" + conexion);
 			ps = conexion.prepareStatement(sql);
 				
 			rst = ps.executeQuery();

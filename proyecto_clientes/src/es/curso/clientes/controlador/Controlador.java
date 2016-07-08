@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import es.curso.clientes.beans.Cliente;
 import es.curso.clientes.dao.ClienteDAO;
 import es.curso.clientes.dao.DAOException;
+import es.curso.clientes.dao.IClienteDAO;
 
 
 /**
@@ -23,7 +24,7 @@ import es.curso.clientes.dao.DAOException;
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,11 +40,9 @@ public class Controlador extends HttpServlet {
         clienteDAO = new ClienteDAO();
 		try {
 			clienteDAO.conectar("root", "root");
-			System.out.println("conectado");
 		} catch (DAOException e) {
 			System.out.println(e.getMessage());
 		}
-		
 	}
 
 	/**
@@ -97,7 +96,6 @@ public class Controlador extends HttpServlet {
 		Cliente cliente;
 	
 		try {
-			System.out.println(clienteDAO);
 			List<String> paises = clienteDAO.getPaises();
 			request.setAttribute("paises", paises);
 			
