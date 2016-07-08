@@ -16,28 +16,27 @@ import es.curso.clientes.dao.ClienteDAO;
 import es.curso.clientes.dao.DAOException;
 import es.curso.clientes.dao.IClienteDAO;
 
-
 /**
  * Servlet implementation class Controlador
  */
 @WebServlet("*.do")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private IClienteDAO clienteDAO;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Controlador() {
-        super();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Controlador() {
+		super();
+	}
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-        clienteDAO = new ClienteDAO();
+		clienteDAO = new ClienteDAO();
 		try {
 			clienteDAO.conectar("root", "root");
 		} catch (DAOException e) {
@@ -57,33 +56,38 @@ public class Controlador extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// Recoger petición
 		String peticion = request.getServletPath();
-		System.out.println(peticion);
+
 		switch (peticion) {
 		case "/nuevoCliente.do":
-			nuevoCliente(request,response);
+			nuevoCliente(request, response);
 			break;
 		case "/insertarCliente.do":
-			insertarCliente(request,response);
+			insertarCliente(request, response);
 			break;
 		case "/listaClientes.do":
-			listaClientes(request,response);
+			listaClientes(request, response);
 			break;
 		case "/modificarCliente.do":
-			modificarCliente(request,response);
+			modificarCliente(request, response);
 			break;
-
+		case "/eliminarCliente.do":
+			eliminarCliente(request, response);
+			break;
 		default:
 			System.out.println("Error");
 			break;
 		}
 	}
 
-	private void listaClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void listaClientes(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Cliente> clientes;
 		try {
 			clientes = clienteDAO.leerTodos();
@@ -95,19 +99,20 @@ public class Controlador extends HttpServlet {
 		rq.forward(request, response);
 	}
 
-	private void nuevoCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void nuevoCliente(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Cliente cliente;
-	
+
 		try {
 			List<String> paises = clienteDAO.getPaises();
 			request.setAttribute("paises", paises);
-			
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-		
+
 		String idcliente = request.getParameter("idcliente");
-		if(idcliente != null){
+		if (idcliente != null) {
 			try {
 				cliente = clienteDAO.leer(idcliente);
 				request.setAttribute("cliente", cliente);
@@ -116,14 +121,15 @@ public class Controlador extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		RequestDispatcher rq = request.getRequestDispatcher("nuevoCliente.jsp");
 		rq.forward(request, response);
-		
+
 	}
 
-	private void insertarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		
+	private void insertarCliente(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Cliente nuevoCliente = new Cliente();
 		nuevoCliente.setIdcliente(request.getParameter("idcliente"));
 		nuevoCliente.setNombre(request.getParameter("nombre"));
@@ -134,14 +140,14 @@ public class Controlador extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		RequestDispatcher rq = request.getRequestDispatcher("listadoClientes.jsp");
-		rq.forward(request, response);
-		
+
+		listaClientes(request,response);
+
 	}
-	
-private void modificarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		
+
+	private void modificarCliente(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Cliente nuevoCliente = new Cliente();
 		nuevoCliente.setIdcliente(request.getParameter("idcliente"));
 		nuevoCliente.setNombre(request.getParameter("nombre"));
@@ -152,10 +158,20 @@ private void modificarCliente(HttpServletRequest request, HttpServletResponse re
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		RequestDispatcher rq = request.getRequestDispatcher("listadoClientes.jsp");
-		rq.forward(request, response);
-		
+
+		listaClientes(request,response);
 	}
 
+	private void eliminarCliente(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String idcliente = request.getParameter("idcliente");
+		try {
+			clienteDAO.borrar(idcliente);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+
+		listaClientes(request,response);
+	}
 }

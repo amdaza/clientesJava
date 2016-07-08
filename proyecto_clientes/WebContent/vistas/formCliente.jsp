@@ -22,6 +22,7 @@
 				<td>
 					<c:if test="${not empty cliente}">
 						<span>${ cliente.idcliente }</span>
+						<input type="hidden" name="idcliente" value="${ cliente.idcliente }">
 					</c:if>
 					<c:if test="${empty cliente}">
 						<input type="text" name="idcliente">

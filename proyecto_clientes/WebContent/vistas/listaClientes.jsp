@@ -25,7 +25,7 @@
 					<a href="nuevoCliente.do?idcliente=${ cli.idcliente }"><img alt="editar" src="img/modificar.bmp"></a>
 				</td>
 				<td>
-					<a><img alt="eliminar" src="img/eliminar.bmp"></a>
+					<a href="eliminarCliente.do?idcliente=${ cli.idcliente }"><img alt="eliminar" src="img/eliminar.bmp"></a>
 				</td>
 			</tr>
 		</c:forEach>
