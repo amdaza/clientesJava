@@ -18,8 +18,10 @@
 					if (failLogin != null) {
 				%>
 					<h2>Necesita iniciar sesión para ver este contenido</h2>
+				<% } else { %>
+					<p>Aquí va el cuerpo de la página</p>
 				<% } %>
-				<p>Aquí va el cuerpo de la página</p>
+				
 		</div>
 		<div class="clear"></div>
 		<div id="pie"><jsp:include page="vistas/pie_pagina.html"></jsp:include></div>
