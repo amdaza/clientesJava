@@ -62,8 +62,8 @@ public class Controlador extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recoger petición
 		String peticion = request.getServletPath();
+		System.out.println(peticion);
 		switch (peticion) {
-		
 		case "/nuevoCliente.do":
 			nuevoCliente(request,response);
 			break;
@@ -72,6 +72,9 @@ public class Controlador extends HttpServlet {
 			break;
 		case "/listaClientes.do":
 			listaClientes(request,response);
+			break;
+		case "/modificarCliente.do":
+			modificarCliente(request,response);
 			break;
 
 		default:
@@ -132,7 +135,25 @@ public class Controlador extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher rq = request.getRequestDispatcher("listadoClientes.jsp");
+		rq.forward(request, response);
+		
+	}
+	
+private void modificarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		
+		Cliente nuevoCliente = new Cliente();
+		nuevoCliente.setIdcliente(request.getParameter("idcliente"));
+		nuevoCliente.setNombre(request.getParameter("nombre"));
+		nuevoCliente.setPais(request.getParameter("pais"));
+		try {
+			clienteDAO.actualizar(nuevoCliente);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		RequestDispatcher rq = request.getRequestDispatcher("listadoClientes.jsp");
 		rq.forward(request, response);
 		
 	}

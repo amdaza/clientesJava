@@ -9,15 +9,24 @@
 </head>
 <body>
 	<h3>Insertar nuevo cliente</h3>
-	<form name="datos" action="insertarCliente.do" method="post">
+	<c:if test="${not empty cliente}">
+		<c:set var="action" value="modificarCliente.do"></c:set>
+	</c:if>
+	<c:if test="${empty cliente}">
+		<c:set var="action" value="insertarCliente.do"></c:set>
+	</c:if>
+	<form name="datos" action="${ action }" method="post">
 		<table>
 			<tr>
 				<td>Id Cliente</td>
 				<td>
-					<input type="text" 
-						name="idcliente" 
-						value=${ cliente.idcliente }>
-					</td>
+					<c:if test="${not empty cliente}">
+						<span>${ cliente.idcliente }</span>
+					</c:if>
+					<c:if test="${empty cliente}">
+						<input type="text" name="idcliente">
+					</c:if>
+				</td>
 			</tr>
 			<tr>
 				<td>Nombre</td>				
